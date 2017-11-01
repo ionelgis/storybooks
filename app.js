@@ -42,11 +42,10 @@ app.use(passport.session());
 
 
 //set global vars
-
-app.use((req, res, next)=> {
-  res.local.user = req.user || null;
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
   next();
-})
+});
 
 const port = process.env.PORT || 5000;
 
