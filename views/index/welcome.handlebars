@@ -1,4 +1,9 @@
 <h1>Welcome </h1>
 <p>Welcoem to StoryBooks 1.0.0</p>
 <p>Fusce in sapien mattis, venenatis diam vel, convallis arcu. Donec fermentum ante mi, eu varius dui mollis ut. Vivamus ac felis non libero dapibus congue. Nunc quam metus, placerat porttitor nulla sed, gravida fringilla purus. Vivamus convallis augue et erat ultrices, id dapibus odio suscipit. Sed gravida purus sed lorem viverra volutpat. Aliquam erat volutpat. In blandit fermentum dapibus. Donec facilisis vehicula sem, vel cursus tellus aliquam malesuada. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla vitae consectetur nibh, sed suscipit tortor. Donec nec enim iaculis, dapibus magna vel, pharetra sapien.</p>
-<a href="/auth/google" class="btn red darken-1"><i class="fa fa-google left"></i>Login with Google</a> 
+
+{{#if user}}
+
+{{else}}
+  <a href="/auth/google" class="btn red darken-1"><i class="fa fa-google left"></i>Login with Google</a> 
+{{/if}}
