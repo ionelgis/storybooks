@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
@@ -12,10 +13,10 @@ require('./models/User')
 //passport config
 require('./config/passport')(passport);
 
-//load auth routes
-const auth = require('./routes/auth');
-//load index routes
+//load  routes
 const index = require('./routes/index');
+const auth = require('./routes/auth');
+const stories = require('./routes/stories');
 
 //load keys
 const keys = require('./config/keys')
@@ -64,11 +65,14 @@ app.use((req, res, next) => {
 const port = process.env.PORT || 5000;
 
 
+//set static folde
+app.use(express.static(path.join(__dirname, 'public')));
 
 
-//use auth routes
+
+//use  routes
+app.use('/stories', stories);
 app.use('/auth', auth);
-//use index routes
 app.use('/', index);
 
 
