@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+
 
 //load  model
 require('./models/User');
@@ -27,7 +29,8 @@ const{
   truncate,
   stripTags,
   formatDate,
-  select
+  select,
+  editIcon
 } = require('./helpers/hbs');
 
 
@@ -47,8 +50,13 @@ mongoose.connect(keys.mongoURI, {
 //create express app
 const app = express();
 
+// body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+//method override middleware
+app.use(methodOverride('_method'));
+
 
 //handelbars middleware
 app.engine('handlebars', exphbs({
@@ -56,7 +64,8 @@ app.engine('handlebars', exphbs({
     truncate: truncate,
     stripTags: stripTags,
     formatDate: formatDate,
-    select: select
+    select: select,
+    editIcon: editIcon
   },
   defaultLayout: 'main'
 }));
