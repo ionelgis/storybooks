@@ -7,13 +7,46 @@ const {ensureAuthenticated, ensureGuest} = require('../helpers/auth');
 
 // stories index
 router.get('/', (req, res)=> {
-  res.render('stories/index')
+  Story.find({status: 'public'})
+  .populate('user')
+  .then(stories => {
+    res.render('stories/index', {
+      stories: stories
+    });
+  });
+  
 });
 
 
 // add stroeis form
 router.get('/add',ensureAuthenticated, (req, res)=> {
   res.render('stories/add')
+});
+
+//show single story
+router.get('/show/:id', (req, res)=> {
+  Story.findOne({
+    _id: req.params.id
+  })
+  .populate('user')
+  .then( story => {
+    res.render('stories/show',{
+      story: story
+    });
+  });
+});
+
+//edit stories
+router.get('/edit/:id',ensureAuthenticated, (req, res)=> {
+  Story.findOne({
+    _id: req.params.id
+  })
+  .then( story => {
+    res.render('stories/edit',{
+      story: story
+    });
+  });
+  
 });
 
 //process add story from
@@ -37,7 +70,7 @@ const newStory = {
 new Story(newStory)
 .save()
 .then(story => {
-  res.redirect(`/stores/show/${story.id}`)
+  res.redirect(`/stories/show/${story.id}`)
 })
 
 });
